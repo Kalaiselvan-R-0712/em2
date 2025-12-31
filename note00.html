@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Stackly — Luxury Event Management</title>
 <meta name="description" content="Stackly — Luxury event planning, corporate conferences, weddings & hybrid experiences." />
-<!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
 
 <style>
 :root {
@@ -19,6 +22,7 @@
   --text-dark: #111827;
   --muted: #6b7280;
 }
+
 
 /* Logo Box */
 .logo-box {
@@ -39,6 +43,7 @@
   transition: box-shadow .2s;
 }
 
+
 /* Header */
 header.site-header {
   backdrop-filter: blur(8px);
@@ -46,6 +51,7 @@ header.site-header {
   border-bottom: 1px solid rgba(0,0,0,0.04);
   transition: background 0.25s, border 0.2s;
 }
+
 
 /* Buttons & Inputs */
 .nav-btn {
@@ -78,8 +84,9 @@ header.site-header {
   box-shadow: 0 6px 20px rgba(212,175,55,0.13);
 }
 
+
 /* Text colors */
-body, p, h1, h2, h3, h4, h5, h6, span, label, li, a, button {
+body, p, h2, h4, span, label, li, a, button {
   color: #23262e !important;
 }
 .text-muted, .text-gray-400, .text-gray-300, .text-gray-500 {
@@ -88,6 +95,7 @@ body, p, h1, h2, h3, h4, h5, h6, span, label, li, a, button {
 a:hover {
   color: var(--accent) !important;
 }
+
 
 /* Body styling */
 body {
@@ -99,16 +107,111 @@ body {
   transition: background 0.2s, color 0.2s;
 }
 
+
+/* NEW HERO SECTION STYLES - MERGED */
+#hero {
+  position: relative;
+  background: radial-gradient(circle at 20% 80%, rgba(212,175,55,0.08), transparent 50%);
+  overflow: hidden;
+}
+
+#hero video {
+  transition: opacity 0.5s ease-in-out;
+}
+
+#hero video[poster] {
+  opacity: 0.3;
+}
+
+#hero video:not([src]) {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hero text stays white/gold as requested */
+#hero h1, #hero p {
+  color: #ffffff !important;
+}
+#hero .tagline {
+  color: var(--gold-1) !important;
+}
+
+
+/* --- NEW LUXURY ANIMATION STYLES --- */
+
+
+/* Expertise Cards Reveal */
+.expertise-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.expertise-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--gold-1);
+}
+.expertise-card img {
+  transition: transform 0.8s ease;
+}
+.expertise-card:hover img {
+  transform: scale(1.1);
+}
+
+
+/* Gallery Hover Shine Effect */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-25deg);
+  transition: 0.75s;
+}
+.gallery-item:hover::after {
+  left: 125%;
+}
+
+
 /* Responsive */
 @media (max-width: 1024px) {
   header.site-header { padding-left: 11px; padding-right: 11px; }
   .nav-links { display: none !important; }
   #mobile-menu { display: none; }
+  #hero {
+    min-height: 90vh;
+  }
+  #hero video {
+    height: 70vh;
+  }
+  #hero .hero-inner {
+    padding-top: 2rem;
+  }
 }
 @media (max-width: 640px) {
   .logo-img-rect { height: 40px !important; }
   .mobile-cta { display: inline-flex !important; }
+  #hero h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.1;
+  }
+  #hero video {
+    height: 50vh;
+  }
 }
+
 
 /* Mobile hero fixes */
 #hero .hero-inner {
@@ -119,23 +222,33 @@ body {
 }
 @media(min-width: 1024px) {
   #hero .hero-inner {
-    flex-direction: row;
+    flex-direction: column;
     text-align: left;
-    align-items: center;
+    align-items: flex-start;
+    gap: 3rem;
   }
 }
+
 
 /* Mobile menu styling */
 #mobile-menu {
   background: white;
   border-top: 1px solid #ddd;
   padding: 10px 0;
+  display: none;
   text-align: center;
+  flex-direction: column;
+  align-items: center;
 }
+#mobile-menu.show {
+  display: flex;
+}
+#mobile-menu.hidden { display: none; }
 #mobile-menu a {
   display: block;
   padding: 10px 0;
 }
+
 
 /* Footer */
 footer {
@@ -158,55 +271,23 @@ footer a:hover {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-  /* Center mobile menu */
-  #mobile-menu {
-    background: white;
-    border-top: 1px solid #ddd;
-    padding: 10px 0;
-    display: none;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-  }
-  #mobile-menu.show {
-    display: flex;
-  }
-  #mobile-menu a {
-    display: block;
-    padding: 10px 0;
-  }
-
-  #mobile-menu {
-  background: white;
-  border-top: 1px solid #ddd;
-  padding: 10px 0;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-}
-#mobile-menu.hidden { display: none; }
-#mobile-menu.show { display: flex; }
-
 
 @media (max-width: 640px) {
   #hero .hero-inner span {
     color: #d4af37 !important; /* gold */
   }
 }
-
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+
 <header class="site-header fixed top-0 left-0 w-full z-50">
   <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
     <a href="index.html" class="logo-box">
       <img src="assets/images/logo/stackly_logo.webp" alt="Stackly logo" class="logo-img-rect" />
     </a>
-    <!-- NAV LINKS -->
     <nav class="items-center gap-6 hidden lg:flex nav-links">
-      <!-- Home Dropdown -->
       <div class="relative" id="home-dropdown">
         <button id="home-dropdown-button" class="text-gray-700 hover:text-[var(--accent)] font-medium inline-flex items-center gap-1 focus:outline-none" aria-expanded="false" aria-haspopup="true" type="button">
           Home
@@ -225,7 +306,6 @@ footer a:hover {
       <a href="register.html" class="register-btn ml-3">Register</a>
     </nav>
     <div class="flex items-center gap-3">
-      <!-- Hamburger button -->
       <button id="mobile-toggle" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden p-2 text-2xl" aria-label="Open menu">☰</button>
     </div>
   </div>
@@ -242,6 +322,7 @@ footer a:hover {
     </div>
   </div>
 
+
   <a href="about.html" class="block w-full max-w-xs px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-black mx-auto">About</a>
   <a href="services.html" class="block w-full max-w-xs px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-black mx-auto">Services</a>
   <a href="packages.html" class="block w-full max-w-xs px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-black mx-auto">Packages</a>
@@ -250,192 +331,105 @@ footer a:hover {
   <a href="login.html" class="block w-full max-w-xs mt-2 py-2 border rounded-full text-center login-btn mx-auto">Login</a>
   <a href="register.html" class="block w-full max-w-xs py-2 rounded-full text-center register-btn mx-auto">Register</a>
 </div>
-
 </header>
 
-<!-- HERO -->
-<section id="hero" class="pt-28 flex items-center justify-center text-center">
-  <div class="hero-inner max-w-6xl px-6">
-    <div class="grid lg:grid-cols-2 gap-10 items-center">
-      <div class="text-left lg:text-left text-center">
-        <div class="inline-flex items-center gap-3 mb-5">
-          <span class="text-sm uppercase tracking-widest text-yellow-500 font-semibold">Luxury • Corporate • Hybrid • Favourite</span>
-          <span class="w-24 h-[1px] bg-white/6 block"></span>
-        </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-black">
-          We craft <span class="gold-text">unforgettable</span> events — <br class="hidden md:block" />with precision & passion.
-        </h1>
-        <p class="mt-6 text-lg text-gray-700 max-w-xl mx-auto lg:mx-0">
-          Stackly is a full-service luxury event management studio. From high-impact launches to intimate weddings — we produce flawless experiences that linger.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start">
-          <a href="#contact" class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-yellow-500 text-black font-semibold shadow-lg hover:scale-[1.02] transition">Book a consult</a>
-          <a href="#gallery" class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-black/20 text-black/90 hover:bg-black/10 transition">View gallery</a>
-        </div>
-      </div>
-      <div class="relative rounded-2xl overflow-hidden shadow-2xl card p-1">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Event stage" class="w-full h-96 object-cover rounded-lg" />
+
+<!-- ✅ NEW HERO SECTION REPLACED -->
+
+<section id="hero" class="relative flex items-center justify-center min-h-screen overflow-hidden pt-28">
+  <div class="absolute inset-0 w-full h-full -z-10">
+    <video autoplay muted loop playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover min-w-full min-h-full max-w-none">
+      <source src="assets/videos/hero-event.mp4" type="video/mp4">
+      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Event stage" class="w-full h-full object-cover">
+    </video>
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(212,175,55,0.15),transparent_50%)]"></div>
+  </div>
+  
+  <div class="hero-inner max-w-6xl px-6 w-full relative z-20 mt-32">
+    <div class="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+      <!-- ✅ GOLDEN TAGLINE -->
+      <span class="tagline text-sm uppercase tracking-widest font-bold text-[var(--gold-1)] drop-shadow-md">Luxury • Corporate • Hybrid</span>
+      
+      <!-- ✅ GOLDEN "unforgettable" -->
+      <h1 class="text-4xl md:text-6xl font-black leading-tight text-white">
+        We craft <span class="bg-gradient-to-r from-[var(--gold-1)] via-yellow-300 to-[var(--gold-2)] bg-clip-text text-transparent font-black drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]">unforgettable</span> events.
+      </h1>
+      
+      <p class="text-xl md:text-2xl max-w-xl font-light text-white/95">
+        Stackly is a full-service luxury event management studio producing flawless experiences that linger.
+      </p>
+      
+      <div class="mt-4 flex flex-wrap gap-4">
+        <a href="contact.html" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold text-lg shadow-2xl hover:scale-105 hover:shadow-yellow-500/50 transition-all duration-300 backdrop-blur-sm border border-yellow-300/50">
+          Book a consult
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+        
+        <!-- ✅ WHITE "View gallery" -->
+        <a href="#gallery" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-white/80 bg-black/20 backdrop-blur-xl text-white font-semibold text-lg hover:bg-white/20 hover:border-white hover:shadow-2xl hover:shadow-yellow-500/30 transition-all duration-300">
+          View gallery
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="py-20">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">Our Expertise</h2>
-      <p class="text-center text-gray-400 max-w-2xl mx-auto mb-8">Strategic planning, creative direction, production design and flawless onsite execution — tailored to your vision.</p>
+<section id="services" class="py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4" data-aos="fade-up">Our Expertise</h2>
+    <p class="text-center text-gray-400 max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">Strategic planning, creative direction, production design and flawless onsite execution — tailored to your vision.</p>
 
-      <div class="grid md:grid-cols-4 gap-6">
-        <div class="p-6 rounded-2xl card hover:shadow-xl transition">
-          <img src="https://images.unsplash.com/photo-1520694478166-daaaaec95b69?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-lg mb-4 h-40 w-full object-cover" />
 
-          <div class="text-sm text-gray-300">Conferences, launches, retreats, investor days.</div>
-        </div>
-
-        <div class="p-6 rounded-2xl card hover:shadow-xl transition">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2" alt="" class="rounded-lg mb-4 h-40 w-full object-cover" />
-
-          <div class="text-sm text-gray-300">End-to-end planning, design & hospitality for unforgettable days.</div>
-        </div>
-
-        <div class="p-6 rounded-2xl card hover:shadow-xl transition">
-          <img src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=9d7b8e3e" alt="" class="rounded-lg mb-4 h-40 w-full object-cover" />
-
-          <div class="text-sm text-gray-300">AV, staging, lighting, streaming and technical direction.</div>
-        </div>
-
-        <div class="p-6 rounded-2xl card hover:shadow-xl transition">
-          <img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3" alt="" class="rounded-lg mb-4 h-40 w-full object-cover" />
-
-          <div class="text-sm text-gray-300">Online & hybrid experiences with high engagement tools.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="gallery" class="py-20 bg-gradient-to-b from-transparent to-black/20">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Gallery</h2>
-      <div class="grid md:grid-cols-3 gap-4">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=5d8b7a" alt="" class="rounded-xl shadow-lg object-cover h-64 w-full" />
-        <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-xl shadow-lg object-cover h-64 w-full" />
-        <img src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-xl shadow-lg object-cover h-64 w-full" />
-        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f8b6f3a" alt="" class="rounded-xl shadow-lg object-cover h-64 w-full" />
-        <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-xl shadow-lg object-cover h-64 w-full" />
-        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" alt="" class="rounded-xl shadow-lg object-cover h-64 w-full" />
-      </div>
-    </div>
-  </section>
-
-<!-- PACKAGES -->
-<section id="packages" class="py-20">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Packages</h2>
-    <p class="text-gray-400 mb-8">Transparent pricing and custom quotes for every scale of event.</p>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="p-8 rounded-2xl card text-left">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm text-gray-400">Great for small gatherings</div>
-          </div>
-          <div class="text-2xl font-bold gold-text">₹75k+</div>
-        </div>
-        <ul class="mt-6 text-sm text-gray-300 space-y-2">
-          <li>Venue coordination</li>
-          <li>Basic production</li>
-          <li>Onsite support</li>
-        </ul>
-        <div class="mt-6 text-right">
-          <a href="#contact" class="px-4 py-2 rounded-full bg-yellow-500 text-black font-semibold">Get started</a>
-        </div>
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://images.unsplash.com/photo-1520694478166-daaaaec95b69?auto=format&fit=crop&w=800&q=80" alt="Corporate conferences" class="rounded-lg mb-4 h-40 w-full object-cover" />
+        <div class="text-sm text-gray-300 font-medium">Conferences, launches, retreats, investor days.</div>
       </div>
 
-      <div class="p-8 rounded-2xl card border-t-4 border-yellow-500 scale-[1.02]">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm text-gray-400">Creative direction & full production</div>
-          </div>
-          <div class="text-2xl font-bold gold-text">₹2L+</div>
-        </div>
-        <ul class="mt-6 text-sm text-gray-300 space-y-2">
-          <li>Creative direction</li>
-          <li>Full production & crew</li>
-          <li>Guest management</li>
-        </ul>
-        <div class="mt-6 text-right">
-          <a href="#contact" class="px-4 py-2 rounded-full bg-yellow-500 text-black font-semibold">Book a consult</a>
-        </div>
+
+      <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="300">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2" alt="Wedding planning" class="rounded-lg mb-4 h-40 w-full object-cover" />
+        <div class="text-sm text-gray-300 font-medium">End-to-end planning, design & hospitality for unforgettable days.</div>
       </div>
 
-      <div class="p-8 rounded-2xl card text-left">
-        <div class="flex items-center justify-between">
-          <div>
-            <div class="text-sm text-gray-400">Tailored luxury experiences</div>
-          </div>
-          <div class="text-2xl font-bold gold-text">Custom</div>
-        </div>
-        <ul class="mt-6 text-sm text-gray-300 space-y-2">
-          <li>Tailored proposals</li>
-          <li>Vendor marketplace</li>
-          <li>Onsite luxury hospitality</li>
-        </ul>
-        <div class="mt-6 text-right">
-          <a href="#contact" class="px-4 py-2 rounded-full bg-yellow-500 text-black font-semibold">Request proposal</a>
-        </div>
+
+      <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="400">
+        <img src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=9d7b8e3e" alt="Technical production" class="rounded-lg mb-4 h-40 w-full object-cover" />
+        <div class="text-sm text-gray-300 font-medium">AV, staging, lighting, streaming and technical direction.</div>
+      </div>
+
+
+      <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="500">
+        <img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3" alt="Hybrid events" class="rounded-lg mb-4 h-40 w-full object-cover" />
+        <div class="text-sm text-gray-300 font-medium">Online & hybrid experiences with high engagement tools.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="py-20">
-  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-start">
-    <div>
-      <h3 class="text-2xl md:text-3xl font-bold text-white">Start planning your event</h3>
-      <p class="text-gray-400 mt-3">Share your vision — we'll reply within one business day with a tailored plan and next steps.</p>
 
-      <ul class="mt-6 text-sm text-gray-300 space-y-2">
-        <li><strong>Phone:</strong> +91 98765 43210</li>
-        <li><strong>Email:</strong> hello@stackly.example</li>
-        <li><strong>Address:</strong> 22 Event Street, Chennai, Tamil Nadu, India</li>
-      </ul>
-    </div>
-
-    <div>
-      <form id="contactForm" class="space-y-4 bg-[#0b0b0b] p-6 rounded-2xl card" onsubmit="handleContact(event)">
-        <div>
-          <label class="block text-sm text-gray-300 mb-1">Name</label>
-          <input name="name" required class="w-full p-3 rounded bg-transparent border border-white/6 text-white" />
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm text-gray-300 mb-1">Email</label>
-            <input name="email" type="email" required class="w-full p-3 rounded bg-transparent border border-white/6 text-white" />
-          </div>
-          <div>
-            <label class="block text-sm text-gray-300 mb-1">Phone</label>
-            <input name="phone" required class="w-full p-3 rounded bg-transparent border border-white/6 text-white" />
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-sm text-gray-300 mb-1">Message</label>
-          <textarea name="message" rows="4" class="w-full p-3 rounded bg-transparent border border-white/6 text-white"></textarea>
-        </div>
-
-        <div class="text-right">
-          <button type="submit" class="px-6 py-3 rounded-full bg-yellow-500 text-black font-semibold">Send request</button>
-        </div>
-      </form>
+<section id="gallery" class="py-20 bg-gradient-to-b from-transparent to-black/20">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-8" data-aos="fade-right">Gallery</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=5d8b7a" alt="Event gallery 1" class="shadow-lg object-cover h-64 w-full hover:scale-105 transition-transform duration-500" /></div>
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=800&q=80" alt="Event gallery 2" class="shadow-lg object-cover h-64 w-full hover:scale-105 transition-transform duration-500" /></div>
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=800&q=80" alt="Event gallery 3" class="shadow-lg object-cover h-64 w-full hover:scale-105 transition-transform duration-500" /></div>
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f8b6f3a" alt="Event gallery 4" class="shadow-lg object-cover h-64 w-full hover:scale-105 transition-transform duration-500" /></div>
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=800&q=80" alt="Event gallery 5" class="shadow-lg object-cover h-64 w-full hover:scale-105 transition-transform duration-500" /></div>
+      <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" alt="Event gallery 6" class="shadow-lg object-cover h-64 w-full hover:scale-105 transition-transform duration-500" /></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+
 <footer class="bg-[#060507] dark:bg-[#050406] text-gray-300 pt-10 pb-8">
   <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
     <div>
@@ -460,43 +454,50 @@ footer a:hover {
       <p class="text-sm text-gray-400 mt-1">📞 +91 98765 43210</p>
       <p class="text-sm text-gray-400 mt-1">✉️ hello@stackly.com</p>
     </div>
-    <div>
-      <h4 class="font-semibold text-white mb-2">Follow us</h4>
-      <div class="flex items-center gap-3 mb-3">
-        <a href="404.html" class="sicon" title="Email" aria-label="Email" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EA4335" width="24" height="24">
-            <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 2-8 5-8-5h16Zm0 12H4V8l8 5 8-5v10Z"/>
-          </svg>
-        </a>
-
-        <a href="404.html" class="sicon" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0077B5" width="24" height="24">
-            <path d="M4.98 3.5C4.98 4.88 3.84 6 2.5 6S0 4.88 0 3.5 1.14 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8H4.5v14H.5V8zM7.5 8h4v2h.1c.5-1 2-2 4-2 4.4 0 5.2 2.9 5.2 6.7V22H17v-6.8c0-1.7 0-3.9-2.5-3.9-2.5 0-2.8 1.9-2.8 3.8V22H7.5V8z"/>
-          </svg>
-        </a>
-
-        <a href="404.html" class="sicon" title="Twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1DA1F2" width="24" height="24">
-            <path d="M23 3a10.9 10.9 0 0 1-3.14.85 4.48 4.48 0 0 0 1.94-2.48 9.12 9.12 0 0 1-2.89 1.1 4.52 4.52 0 0 0-7.7 4.12A12.79 12.79 0 0 1 1.67 2.15 4.52 4.52 0 0 0 3.13 9a4.49 4.49 0 0 1-2.04-.55v.06a4.52 4.52 0 0 0 3.63 4.41 4.51 4.51 0 0 1-2.03.07 4.53 4.53 0 0 0 4.22 3.13A9.07 9.07 0 0 1 1.11 18.1 12.82 12.82 0 0 0 7 20c8.3 0 12.85-6.87 12.85-12.84 0-.2 0-.42-.01-.63A9.18 9.18 0 0 0 23 3z"/>
-          </svg>
-        </a>
-
-        <a href="404.html" class="sicon" title="Facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877F2" width="24" height="24">
-            <path d="M22.675 0H1.325C.594 0 0 .593 0 1.325v21.351C0 23.406.593 24 1.325 24h11.483v-9.294H9.692v-3.622h3.116V8.414c0-3.1 1.896-4.788 4.66-4.788 1.325 0 2.466.099 2.797.143v3.24l-1.92.001c-1.504 0-1.796.715-1.796 1.765v2.315h3.59l-.467 3.621h-3.123V24h6.116c.73 0 1.324-.594 1.324-1.324V1.325C24 .594 23.406 0 22.675 0z"/>
-          </svg>
-        </a>
-
-        <a href="404.html" class="sicon" title="Instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E1306C" width="24" height="24">
-            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3.5a1 1 0 110 2 1 1 0 010-2zm-5 1.5a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
-          </svg>
-        </a>
-      </div>
-    </div>
+<div>
+  <h4 class="font-semibold text-white mb-2">Follow us</h4>
+  <div class="flex items-center gap-3 mb-3">
+    <a href="404.html" class="sicon" title="Email" aria-label="Email">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EA4335" width="24" height="24">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 2-8 5-8-5h16Zm0 12H4V8l8 5 8-5v10Z"/>
+      </svg>
+    </a>
+    <a href="404.html" class="sicon" title="LinkedIn" aria-label="LinkedIn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0077B5" width="24" height="24">
+        <path d="M4.98 3.5C4.98 4.88 3.84 6 2.5 6S0 4.88 0 3.5 1.14 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8H4.5v14H.5V8zM7.5 8h4v2h.1c.5-1 2-2 4-2 4.4 0 5.2 2.9 5.2 6.7V22H17v-6.8c0-1.7 0-3.9-2.5-3.9-2.5 0-2.8 1.9-2.8 3.8V22H7.5V8z"/>
+      </svg>
+    </a>
+    <a href="404.html" class="sicon" title="Twitter" aria-label="Twitter">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1DA1F2" width="24" height="24">
+        <path d="M23 3a10.9 10.9 0 0 1-3.14 .85 4.48 4.48 0 0 0 1.94-2.48 9.12 9.12 0 0 1-2.89 1.1 4.52 4.52 0 0 0-7.7 4.12A12.79 12.79 0 0 1 1.67 2.15 4.52 4.52 0 0 0 3.13 9a4.49 4.49 0 0 1-2.04-.55v.06a4.52 4.52 0 0 0 3.63 4.41 4.51 4.51 0 0 1-2.03 .07 4.53 4.53 0 0 0 4.22 3.13A9.07 9.07 0 0 1 1.11 18.1 12.82 12.82 0 0 0 7 20c8.3 0 12.85-6.87 12.85-12.84 0-.2 0-.42-.01-.63A9.18 9.18 0 0 0 23 3z"/>
+      </svg>
+    </a>
+    <a href="404.html" class="sicon" title="Facebook" aria-label="Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877F2" width="24" height="24">
+        <path d="M22.675 0H1.325C.594 0 0 .593 0 1.325v21.351C0 23.406.593 24 1.325 24h11.483v-9.294H9.692v-3.622h3.116V8.414c0-3.1 1.896-4.788 4.66-4.788 1.325 0 2.466.099 2.797.143v3.24l-1.92.001c-1.504 0-1.796.715-1.796 1.765v2.315h3.59l-.467 3.621h-3.123V24h6.461C23.406 24 24 23.406 24 22.676V1.325C24 .593 23.406 0 22.675 0z"/>
+      </svg>
+    </a>
+    <a href="404.html" class="sicon" title="Instagram" aria-label="Instagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#E1306C" width="24" height="24">
+        <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 3.5a1 1 0 110 2 1 1 0 010-2zm-5 1.5a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
+      </svg>
+    </a>
+  </div>
+</div>
   </div>
   <div class="max-w-7xl mx-auto px-6 text-center text-xs text-gray-500 mt-8">© 2025 Stackly. All rights reserved.</div>
 </footer>
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
+  });
+</script>
+
 
 <script>
 const mobileToggle = document.getElementById('mobile-toggle');
@@ -504,15 +505,13 @@ const mobileMenu = document.getElementById('mobile-menu');
 const homeDropdownBtn = document.getElementById('home-dropdown-button');
 const homeDropdownMenu = document.getElementById('home-dropdown-menu');
 
+
 mobileToggle.addEventListener('click', () => {
-  const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
-  mobileToggle.setAttribute('aria-expanded', String(!expanded));
-  if (expanded) {
-    mobileMenu.classList.add('hidden');
-  } else {
-    mobileMenu.classList.remove('hidden');
-  }
+  const isVisible = mobileMenu.classList.toggle('show');
+  mobileMenu.classList.toggle('hidden');
+  mobileToggle.setAttribute('aria-expanded', isVisible);
 });
+
 
 homeDropdownBtn.addEventListener('click', (e) => {
   e.preventDefault();
@@ -521,38 +520,18 @@ homeDropdownBtn.addEventListener('click', (e) => {
   homeDropdownBtn.setAttribute('aria-expanded', String(!expanded));
 });
 
+
 document.addEventListener('click', (e) => {
   if (!homeDropdownBtn.contains(e.target) && !homeDropdownMenu.contains(e.target)) {
     homeDropdownMenu.classList.add('hidden');
     homeDropdownBtn.setAttribute('aria-expanded', 'false');
   }
 });
-</script>
-<script>
-const mobileToggle = document.getElementById('mobile-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
 
-mobileToggle.addEventListener('click', () => {
-  const isVisible = mobileMenu.classList.toggle('show');
-  mobileToggle.setAttribute('aria-expanded', isVisible);
-});
-</script>
 
-<script>
-document.getElementById("mobile-toggle").addEventListener("click", () => {
-  const menu = document.getElementById("mobile-menu");
-  const btn = document.getElementById("mobile-toggle");
-
-  menu.classList.toggle("hidden");
-  menu.classList.toggle("show");
-
-  const expanded = btn.getAttribute("aria-expanded") === "true";
-  btn.setAttribute("aria-expanded", !expanded);
-});
-</script>
-
-<script>const mobileHomeDropdownBtn = document.getElementById('mobile-home-dropdown-btn');
+const mobileHomeDropdownBtn = document.getElementById('mobile-home-dropdown-btn');
 const mobileHomeDropdownMenu = document.getElementById('mobile-home-dropdown-menu');
+
 
 mobileHomeDropdownBtn.addEventListener('click', () => {
   const expanded = mobileHomeDropdownBtn.getAttribute('aria-expanded') === 'true';
@@ -560,26 +539,15 @@ mobileHomeDropdownBtn.addEventListener('click', () => {
   mobileHomeDropdownMenu.classList.toggle('hidden');
   mobileHomeDropdownBtn.querySelector('svg').classList.toggle('rotate-180');
 });
-</script>
 
-<script>
-    function handleContact(event) {
+
+function handleContact(event) {
   event.preventDefault();
-  // Add form validation or send logic here if needed
-
-  window.location.href = "404.html"; // redirect after submission
+  alert('Thank you! We will contact you within 24 hours.');
+  window.location.href = "#hero";
 }
 </script>
 
-<script>const mobileHomeDropdownBtn = document.getElementById('mobile-home-dropdown-btn');
-const mobileHomeDropdownMenu = document.getElementById('mobile-home-dropdown-menu');
 
-mobileHomeDropdownBtn.addEventListener('click', () => {
-  const expanded = mobileHomeDropdownBtn.getAttribute('aria-expanded') === 'true';
-  mobileHomeDropdownBtn.setAttribute('aria-expanded', String(!expanded));
-  mobileHomeDropdownMenu.classList.toggle('hidden');
-  mobileHomeDropdownBtn.querySelector('svg').classList.toggle('rotate-180');
-});
-</script>
 </body>
 </html>

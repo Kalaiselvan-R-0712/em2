@@ -7,7 +7,6 @@
 <meta name="description" content="Stackly — Luxury event planning, corporate conferences, weddings & hybrid experiences." />
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
@@ -79,8 +78,8 @@ header.site-header {
   box-shadow: 0 6px 20px rgba(212,175,55,0.13);
 }
 
-/* Text colors */
-body, p, h1, h2, h3, h4, h5, h6, span, label, li, a, button {
+/* FIXED: Body text only - NO hero interference */
+body, label, li, button:not(.login-btn):not(.register-btn):not([href="#gallery"]) {
   color: #23262e !important;
 }
 .text-muted, .text-gray-400, .text-gray-300, .text-gray-500 {
@@ -100,33 +99,44 @@ body {
   transition: background 0.2s, color 0.2s;
 }
 
-/* Video Hero Enhancements */
+/* HERO STYLES - ULTRA SPECIFIC & STRONGER */
 #hero {
   position: relative;
   background: radial-gradient(circle at 20% 80%, rgba(212,175,55,0.08), transparent 50%);
   overflow: hidden;
 }
-
 #hero video {
   transition: opacity 0.5s ease-in-out;
 }
-
 #hero video[poster] {
   opacity: 0.3;
 }
-
 #hero video:not([src]) {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
 }
-
 @keyframes loading {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-/* --- NEW LUXURY ANIMATION STYLES --- */
+/* 🔥 HERO TEXT - MAXIMUM SPECIFICITY */
+#hero h1, #hero h1 * { 
+  color: #ffffff !important; 
+}
+#hero .tagline { 
+  color: var(--gold-1) !important; 
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+#hero p { 
+  color: #ffffff !important; 
+}
+
+/* 🎯 VIEW GALLERY BUTTON - BULLETPROOF WHITE */
+#hero a[href="#gallery"], #hero a[href="#gallery"] * {
+  color: #ffffff !important;
+}
 
 /* Expertise Cards Reveal */
 .expertise-card {
@@ -170,26 +180,15 @@ body {
   header.site-header { padding-left: 11px; padding-right: 11px; }
   .nav-links { display: none !important; }
   #mobile-menu { display: none; }
-  #hero {
-    min-height: 90vh;
-  }
-  #hero video {
-    height: 70vh;
-  }
-  #hero .hero-inner {
-    padding-top: 2rem;
-  }
+  #hero { min-height: 90vh; }
+  #hero video { height: 70vh; }
+  #hero .hero-inner { padding-top: 2rem; }
 }
 @media (max-width: 640px) {
   .logo-img-rect { height: 40px !important; }
   .mobile-cta { display: inline-flex !important; }
-  #hero h1 {
-    font-size: 2.5rem !important;
-    line-height: 1.1;
-  }
-  #hero video {
-    height: 50vh;
-  }
+  #hero h1 { font-size: 2.5rem !important; line-height: 1.1; }
+  #hero video { height: 50vh; }
 }
 
 /* Mobile hero fixes */
@@ -218,14 +217,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
-#mobile-menu.show {
-  display: flex;
-}
+#mobile-menu.show { display: flex; }
 #mobile-menu.hidden { display: none; }
-#mobile-menu a {
-  display: block;
-  padding: 10px 0;
-}
+#mobile-menu a { display: block; padding: 10px 0; }
 
 /* Footer */
 footer {
@@ -240,22 +234,30 @@ footer a {
 footer a:hover {
   color: var(--accent) !important;
 }
-/* Dropdown */
-#home-dropdown-menu a {
-  cursor: pointer;
-}
+#home-dropdown-menu a { cursor: pointer; }
 #home-dropdown-menu {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 @media (max-width: 640px) {
-  #hero .hero-inner span {
-    color: #d4af37 !important; /* gold */
-  }
+  #hero .hero-inner span { color: #d4af37 !important; }
 }
+
+/* Text colors */
+body, p, h2, h4, span, label, li, a, button {
+  color: #23262e !important;
+}
+.text-muted, .text-gray-400, .text-gray-300, .text-gray-500 {
+  color: #75787d !important;
+}
+a:hover {
+  color: var(--accent) !important;
+}
+
 </style>
 </head>
 <body>
+<!-- ALL HTML CONTENT REMAINS EXACTLY THE SAME -->
 
 <header class="site-header fixed top-0 left-0 w-full z-50">
   <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
@@ -297,6 +299,7 @@ footer a:hover {
     </div>
   </div>
 
+
   <a href="about.html" class="block w-full max-w-xs px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-black mx-auto">About</a>
   <a href="services.html" class="block w-full max-w-xs px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-black mx-auto">Services</a>
   <a href="packages.html" class="block w-full max-w-xs px-4 py-2 rounded-md hover:bg-yellow-500 hover:text-black mx-auto">Packages</a>
@@ -307,51 +310,44 @@ footer a:hover {
 </div>
 </header>
 
-<section id="hero" class="relative pt-28 flex items-center justify-center min-h-screen overflow-hidden">
+<!-- JUST REPLACE YOUR HERO SECTION WITH THIS: -->
+<section id="hero" class="relative flex items-center justify-center min-h-screen overflow-hidden pt-28">
   <div class="absolute inset-0 w-full h-full -z-10">
-    <video 
-      autoplay 
-      muted 
-      loop 
-      playsinline 
-      preload="metadata"
-      class="absolute inset-0 w-full h-full object-cover min-w-full min-h-full max-w-none"
-      poster="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80"
-    >
+    <video autoplay muted loop playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover min-w-full min-h-full max-w-none">
       <source src="assets/videos/hero-event.mp4" type="video/mp4">
       <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Event stage" class="w-full h-full object-cover">
     </video>
-    <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20"></div>
+    <div class="absolute inset-0 bg-black/60"></div>
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(212,175,55,0.15),transparent_50%)]"></div>
   </div>
   
-  <div class="hero-inner max-w-6xl px-6 w-full relative z-20">
-    <div class="flex flex-col items-center lg:items-start text-center lg:text-left gap-8 lg:gap-12">
-      <div class="max-w-2xl">
-        <div class="mb-8">
-          <span class="text-sm uppercase tracking-widest text-yellow-400 font-semibold drop-shadow-md block lg:inline">Luxury • Corporate • Hybrid • Favourite</span>
-        </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-yellow-300 drop-shadow-2xl mb-6">
-          We craft <span class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(212,175,55,0.6)] font-black">unforgettable</span> events — <br class="hidden md:block"/>with precision & passion.
-        </h1>
-        <p class="mt-6 text-xl md:text-2xl text-yellow-200/90 max-w-xl drop-shadow-lg leading-relaxed font-light">
-          Stackly is a full-service luxury event management studio. From high-impact launches to intimate weddings — we produce flawless experiences that linger.
-        </p>
-        <div class="mt-10 flex flex-wrap gap-4 justify-center lg:justify-start">
-          <a href="contact.html" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold text-lg shadow-2xl hover:scale-105 hover:shadow-yellow-500/50 transition-all duration-300 backdrop-blur-sm border border-yellow-300/50">
-            Book a consult
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </a>
-          <a href="#gallery" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-yellow-400/60 bg-white/10 backdrop-blur-xl text-yellow-200/95 font-semibold text-lg hover:bg-yellow-500/20 hover:border-yellow-400/80 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/30">
-            View gallery
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-            </svg>
-          </a>
-        </div>
+  <div class="hero-inner max-w-6xl px-6 w-full relative z-20 mt-32">
+    <div class="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+      <span class="tagline text-sm uppercase tracking-widest font-bold drop-shadow-md">Luxury • Corporate • Hybrid</span>
+      
+      <h1 class="text-4xl md:text-6xl font-black leading-tight">
+        We craft <span class="luxury-gold">unforgettable</span> events.
+      </h1>
+      
+      <p class="text-xl md:text-2xl max-w-xl font-light">
+        Stackly is a full-service luxury event management studio producing flawless experiences that linger.
+      </p>
+      
+      <div class="mt-4 flex flex-wrap gap-4">
+        <a href="contact.html" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold text-lg shadow-2xl hover:scale-105 hover:shadow-yellow-500/50 transition-all duration-300 backdrop-blur-sm border border-yellow-300/50">
+          Book a consult
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+        
+        <a href="#gallery" class="group inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-white/80 bg-black/20 backdrop-blur-xl text-white font-semibold text-lg hover:bg-white/20 hover:border-white hover:shadow-2xl hover:shadow-yellow-500/30 transition-all duration-300">
+          View gallery
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
@@ -362,21 +358,25 @@ footer a:hover {
     <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4" data-aos="fade-up">Our Expertise</h2>
     <p class="text-center text-gray-400 max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">Strategic planning, creative direction, production design and flawless onsite execution — tailored to your vision.</p>
 
+
     <div class="grid md:grid-cols-4 gap-6">
       <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="200">
         <img src="https://images.unsplash.com/photo-1520694478166-daaaaec95b69?auto=format&fit=crop&w=800&q=80" alt="Corporate conferences" class="rounded-lg mb-4 h-40 w-full object-cover" />
         <div class="text-sm text-gray-300 font-medium">Conferences, launches, retreats, investor days.</div>
       </div>
 
+
       <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="300">
         <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2" alt="Wedding planning" class="rounded-lg mb-4 h-40 w-full object-cover" />
         <div class="text-sm text-gray-300 font-medium">End-to-end planning, design & hospitality for unforgettable days.</div>
       </div>
 
+
       <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="400">
         <img src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=9d7b8e3e" alt="Technical production" class="rounded-lg mb-4 h-40 w-full object-cover" />
         <div class="text-sm text-gray-300 font-medium">AV, staging, lighting, streaming and technical direction.</div>
       </div>
+
 
       <div class="expertise-card p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg" data-aos="fade-up" data-aos-delay="500">
         <img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3" alt="Hybrid events" class="rounded-lg mb-4 h-40 w-full object-cover" />
@@ -385,6 +385,7 @@ footer a:hover {
     </div>
   </div>
 </section>
+
 
 <section id="gallery" class="py-20 bg-gradient-to-b from-transparent to-black/20">
   <div class="max-w-7xl mx-auto px-6">
@@ -399,6 +400,7 @@ footer a:hover {
     </div>
   </div>
 </section>
+
 
 <footer class="bg-[#060507] dark:bg-[#050406] text-gray-300 pt-10 pb-8">
   <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
@@ -439,7 +441,7 @@ footer a:hover {
     </a>
     <a href="404.html" class="sicon" title="Twitter" aria-label="Twitter">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1DA1F2" width="24" height="24">
-        <path d="M23 3a10.9 10.9 0 0 1-3.14.85 4.48 4.48 0 0 0 1.94-2.48 9.12 9.12 0 0 1-2.89 1.1 4.52 4.52 0 0 0-7.7 4.12A12.79 12.79 0 0 1 1.67 2.15 4.52 4.52 0 0 0 3.13 9a4.49 4.49 0 0 1-2.04-.55v.06a4.52 4.52 0 0 0 3.63 4.41 4.51 4.51 0 0 1-2.03.07 4.53 4.53 0 0 0 4.22 3.13A9.07 9.07 0 0 1 1.11 18.1 12.82 12.82 0 0 0 7 20c8.3 0 12.85-6.87 12.85-12.84 0-.2 0-.42-.01-.63A9.18 9.18 0 0 0 23 3z"/>
+        <path d="M23 3a10.9 10.9 0 0 1-3.14 .85 4.48 4.48 0 0 0 1.94-2.48 9.12 9.12 0 0 1-2.89 1.1 4.52 4.52 0 0 0-7.7 4.12A12.79 12.79 0 0 1 1.67 2.15 4.52 4.52 0 0 0 3.13 9a4.49 4.49 0 0 1-2.04-.55v.06a4.52 4.52 0 0 0 3.63 4.41 4.51 4.51 0 0 1-2.03 .07 4.53 4.53 0 0 0 4.22 3.13A9.07 9.07 0 0 1 1.11 18.1 12.82 12.82 0 0 0 7 20c8.3 0 12.85-6.87 12.85-12.84 0-.2 0-.42-.01-.63A9.18 9.18 0 0 0 23 3z"/>
       </svg>
     </a>
     <a href="404.html" class="sicon" title="Facebook" aria-label="Facebook">
@@ -458,6 +460,18 @@ footer a:hover {
   <div class="max-w-7xl mx-auto px-6 text-center text-xs text-gray-500 mt-8">© 2025 Stackly. All rights reserved.</div>
 </footer>
 
+<style>
+.luxury-gold {
+  background: linear-gradient(90deg, var(--gold-1), yellow, var(--gold-2)) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: 0 0 20px rgba(212,175,55,0.6) !important;
+  filter: drop-shadow(0 0 10px rgba(212,175,55,0.4)) !important;
+}
+</style>
+
+<!-- ALL SCRIPTS REMAIN EXACTLY THE SAME -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init({
@@ -509,6 +523,5 @@ function handleContact(event) {
   window.location.href = "#hero";
 }
 </script>
-
 </body>
 </html>
